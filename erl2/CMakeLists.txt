@@ -134,7 +134,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -219,7 +219,7 @@ add_dependencies(check_hyp ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED
 ## in contrast to setup.py, you can choose the destination
  catkin_install_python(PROGRAMS
    scripts/go_to_point.py
-   scripts/ontology.py
+   scripts/ontology_server.py
    scripts/plan_manager.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )

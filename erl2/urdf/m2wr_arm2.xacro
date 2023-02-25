@@ -1,8 +1,9 @@
 <?xml version="1.0" ?>
-<robot name="cluedo_robot" xmlns:xacro="https://www.ros.org/wiki/xacro" >
+<robot name="m2wr" xmlns:xacro="https://www.ros.org/wiki/xacro" >
+    
 
  <xacro:include filename="$(find erl2)/urdf/materials.xacro" />
- <xacro:include filename="$(find erl2)/urdf/cluedo_robot.gazebo" />
+ <xacro:include filename="$(find erl2)/urdf/m2wr_arm2.gazebo" />
 
  <xacro:macro name="cylinder_inertia" params="mass r l"> 
     <inertia ixx="${mass*(3*r*r+l*l)/12}" ixy = "0" ixz = "0"
@@ -49,7 +50,7 @@
     <pose>0 0 0.1 0 0 0</pose>
     
     <inertial>
-      <mass value="7"/>
+      <mass value="5"/>
       <origin rpy="0 0 0" xyz="0 0 0.1"/>
       <inertia ixx="0.0395416666667" ixy="0" ixz="0" iyy="0.106208333333" iyz="0" izz="0.106208333333"/>
     </inertial>
@@ -135,7 +136,7 @@
 
   <link name="arm_base_link">
   	<inertial>
-  		<mass value="0.5"/>
+  		<mass value="0.1"/>
   		<origin xyz="0 0 0" rpy="0 0 0" />
   		<inertia ixx="0.0000416666667" ixy="0" ixz="0" iyy="0.0000416666667" iyz="0" izz="0.0000416666667"/>
   	</inertial>
@@ -163,20 +164,21 @@
 
   <link name="arm_link_01">
   	<inertial>
-  		<mass value="0.015"/>
+  		<mass value="0.01"/>
   		<origin xyz="0 0 0" rpy="0 0 0" />
-  		<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225"/>
+  		<xacro:cylinder_inertia mass="0.05" r="0.04" l="0.4" />
+  		<!--inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225"/-->
   	</inertial>
   	<collision>
-  	  <origin xyz="0 0 0.25" rpy="0 0 0"/>
+  	  <origin xyz="0 0 0.2" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.04" length="0.5"/>
+        <cylinder radius="0.04" length="0.4"/>
       </geometry>
   	</collision>
   	<visual>
-  	  <origin xyz="0 0 0.25" rpy="0 0 0"/>
+  	  <origin xyz="0 0 0.2" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.04" length="0.5"/>
+        <cylinder radius="0.04" length="0.4"/>
       </geometry>
       <material name="red" />
   	</visual>
@@ -184,7 +186,7 @@
 
   <joint name="arm_joint_01" type="revolute">
   	<axis xyz="0 0 1"/>
-  	<limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.2"/>
+  	<limit effort="10000.0" lower="-3.14" upper="3.14" velocity="0.2"/>
   	<origin rpy="0 0 0" xyz="0 0 0.05"/>
   	<parent link="arm_base_link"/>
   	<child link="arm_link_01"/>
@@ -193,20 +195,21 @@
 
     <link name="arm_link_02">
   	<inertial>
-  		<mass value="0.015"/>
+  		<mass value="0.01"/>
   		<origin xyz="0 0 0" rpy="0 0 0" />
-  		<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225"/>
+  		<xacro:cylinder_inertia mass="0.05" r="0.04" l="0.4" />
+  		<!--inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225"/-->
   	</inertial>
   	<collision>
   	  <origin xyz="0 0 0.2" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.04" length="0.5"/>
+        <cylinder radius="0.04" length="0.4"/>
       </geometry>
   	</collision>
   	<visual>
-  	  <origin xyz="0 0 0.25" rpy="0 0 0"/>
+  	  <origin xyz="0 0 0.2" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.04" length="0.5"/>
+        <cylinder radius="0.04" length="0.4"/>
       </geometry>
       <material name="red" />
   	</visual>
@@ -214,28 +217,29 @@
 
   <joint name="arm_joint_02" type="revolute">
   	<axis xyz="1 0 0"/>
-  	<limit effort="1000.0" lower="-1.8" upper="1.8" velocity="0.2"/>
-  	<origin rpy="0 0 0" xyz="0 0 0.5"/>
+  	<limit effort="10000.0" lower="-1.8" upper="1.8" velocity="0.2"/>
+  	<origin rpy="0 0 0" xyz="0 0 0.4"/>
   	<parent link="arm_link_01"/>
   	<child link="arm_link_02"/>
   </joint>
 
       <link name="arm_link_03">
   	<inertial>
-  		<mass value="0.015"/>
+  		<mass value="0.01"/>
   		<origin xyz="0 0 0" rpy="0 0 0" />
-  		<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225"/>
+  		<xacro:cylinder_inertia mass="0.05" r="0.04" l="0.4" />
+  		<!--inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225"/-->
   	</inertial>
   	<collision>
   	  <origin xyz="0 0 0.2" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.04" length="0.5"/>
+        <cylinder radius="0.04" length="0.4"/>
       </geometry>
   	</collision>
   	<visual>
-  	  <origin xyz="0 0 0.25" rpy="0 0 0"/>
+  	  <origin xyz="0 0 0.2" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.04" length="0.5"/>
+        <cylinder radius="0.04" length="0.4"/>
       </geometry>
       <material name="red" />
   	</visual>
@@ -243,20 +247,20 @@
 
   <joint name="arm_joint_03" type="revolute">
   	<axis xyz="1 0 0"/>
-  	<limit effort="1000.0" lower="-1.8" upper="1.8" velocity="0.2"/>
-  	<origin rpy="0 0 0" xyz="0 0 0.5"/>
+  	<limit effort="10000.0" lower="-1.8" upper="1.8" velocity="0.2"/>
+  	<origin rpy="0 0 0" xyz="0 0 0.4"/>
   	<parent link="arm_link_02"/>
   	<child link="arm_link_03"/>
   </joint>
 
     <link name="cluedo_link">
   	<inertial>
-  		<mass value="0.005"/>
+  		<mass value="0.01"/>
   		<origin xyz="0 0 0" rpy="0 0 0" />
   		<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225"/>
   	</inertial>
   	<collision>
-  	  <origin xyz="0 0 0" rpy="0 0 1.57"/>
+  	  <origin xyz="0 0 0.04" rpy="0 0 1.57"/>
       <geometry>
         <box size="0.034 0.2 0.08"/>
       </geometry>
@@ -272,8 +276,8 @@
 
   <joint name="arm_joint_04" type="revolute">
   	<axis xyz="1 0 0"/>
-  	<limit effort="1000.0" lower="-1.8" upper="1.8" velocity="0.5"/>
-  	<origin rpy="0 0 0" xyz="0 0 0.5"/>
+  	<limit effort="10000.0" lower="-1.8" upper="1.8" velocity="0.5"/>
+  	<origin rpy="0 0 0" xyz="0 0 0.4"/>
   	<parent link="arm_link_03"/>
   	<child link="cluedo_link"/>
   </joint>
@@ -281,7 +285,7 @@
 
 <link name="right_grip_link">
   	<inertial>
-  		<mass value="0.001"/>
+  		<mass value="0.01"/>
   		<origin xyz="0 0 0" rpy="0 0 0" />
   		<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225"/>
   	</inertial>
@@ -310,7 +314,7 @@
 
   <link name="left_grip_link">
   	<inertial>
-  		<mass value="0.001"/>
+  		<mass value="0.01"/>
   		<origin xyz="0 0 0" rpy="0 0 0" />
   		<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225"/>
   	</inertial>

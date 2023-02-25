@@ -14,11 +14,12 @@
     (base_at ?wp - waypoint)
     (center ?wp - waypoint)
     (unexplored ?wp - waypoint ?h - height)
+    (hint_percieved)
     (correct_hyp)
 )
 
 (:functions
-    (hint_number)
+    (hint_percieved)    ;;number of hints collected
 )
 
 (:action start_game
@@ -32,7 +33,7 @@
 )
 
 
-(:action goto_waypoint
+(:action go_to_waypoint
     :parameters (?from ?to - waypoint)
     :precondition (and (base_at ?from) (arm_pos_adjusted))
     :effect (and
@@ -54,18 +55,18 @@
     :parameters (?wp - waypoint ?h - height)
     :precondition (and (base_at ?wp) (arm_at ?h) (unexplored ?wp ?h))
     :effect (and
-        (increase (hint_number) 1.0)
         (not (unexplored ?wp ?h))
+        (increase(hint_percieved) 1.0)
     )
 )
 
 
 (:action check_hyp
     :parameters (?wp - waypoint)
-    :precondition (and (>= (hint_number) 3.0) (center ?wp) (base_at ?wp) )
+    :precondition (and (>= (hint_percieved) 3.0) (center ?wp) (base_at ?wp))
     :effect (and
         (correct_hyp)
-        (assign (hint_number) 0.0)
+        (assign (hint_percieved) 0.0)
     )
 )
 

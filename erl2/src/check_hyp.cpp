@@ -1,29 +1,42 @@
 #include "erl2/check_hyp.h"
 #include <unistd.h>
-#include <string.h>
-#include <vector>
-#include <typeinfo>
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/client/terminal_state.h>
 #include <erl2/TargetAction.h>
 #include "erl2/HypCheck.h"
 #include "erl2/Oracle.h"
+#include <string.h>
+#include <vector>
+#include <typeinfo>
 
 ros::ServiceClient client_ontology;
 ros::ServiceClient client_oracle;
 
 namespace KCL_rosplan {
-       
+        /**
+	 * \brief this is the initialization function of CheckHypCorrectInterface class
+	 * This function takes as input the node handle and initiliazes an instance of the class
+	*/
 	CheckHypInterface::CheckHypInterface(ros::NodeHandle &nh) {
 	    // here the initialization
 	}
-	
+        
+	/**
+	 * \brief this is the callback function for the check hypothesis correct action interface
+	 * 
+	 *
+	 * \return true if there is a correct hypothesis or false otherwise
+	 *
+	 * This function gets the list of completed hypotheses by calling the service /check_hyp_complete and then it gets the correct hypothesis ID by calling the service /oracle_solution 
+	 * It loops over the list of completed hypotheses to check if any of them is the correct hypothesis
+	 * 
+	*/
 	bool CheckHypInterface::concreteCallback(const rosplan_dispatch_msgs::ActionDispatch::ConstPtr& msg) {
 		// here the implementation of the action
 		
 		erl2::HypCheck h;    
 		client_ontology.call(h);
-		ROS_INFO("Checking complete hypothesis: ");
+		ROS_INFO("I called the check complete hypothesis");
 		std::vector<std::string> r = h.response.complete_hyps;
 		int length_hyp = r.size();
 		if (length_hyp == 0){
@@ -64,11 +77,11 @@ namespace KCL_rosplan {
  *
 */
 int main(int argc, char **argv) {
-	ros::init(argc, argv, "CheckHypCorrect_rosplan_action", ros::init_options::AnonymousName);
+	ros::init(argc, argv, "CheckHyp_rosplan_action", ros::init_options::AnonymousName);
 	ros::NodeHandle nh("~");
-	client_ontology = nh.serviceClient<erl2::HypCompCheck>("/check_hyp_complete");
+	client_ontology = nh.serviceClient<erl2::HypCheck>("/check_hyp");
 	client_oracle = nh.serviceClient<erl2::Oracle>("/oracle_solution");
-	KCL_rosplan::CheckHypCorrectInterface my_aci(nh);
+	KCL_rosplan::CheckHypInterface my_aci(nh);
 	my_aci.runActionInterface();
 	return 0;
 }

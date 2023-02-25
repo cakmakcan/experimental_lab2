@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/client/terminal_state.h>
-#include <erl2/PlanningAction.h>
+#include <erl2/TargetAction.h>
 #include "erl2/ErlOracle.h"
 #include "erl2/Hint.h"
 #include <string.h>

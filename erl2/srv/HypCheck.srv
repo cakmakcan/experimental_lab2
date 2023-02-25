@@ -1,3 +1,2 @@
-string ID
 ---
-bool correct
+string[] complete_hyps

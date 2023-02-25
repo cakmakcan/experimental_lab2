@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <launch>
 <!-- arguments -->
-<arg name="domain_path" default="$(find erl2)/knowledge/domaın.pddl" />
-<arg name="problem_path" default="$(find erl2)/knowledge/problem.pddl" />
+<arg name="domain_path" default="$(find erl2)/common/domain.pddl" />
+<arg name="problem_path" default="$(find erl2)/common/problem.pddl" />
 <!-- knowledge base -->
 <node name="rosplan_knowledge_base" pkg="rosplan_knowledge_base" type="knowledgeBase" respawn="false" output="screen">
 <param name="domain_path" value="$(arg domain_path)" />
@@ -44,14 +44,14 @@
 
 	<node name="rosplan_interface_start_game" pkg="erl2" type="start_game" respawn="false" output="screen">
 	        <param name="knowledge_base" value="rosplan_knowledge_base" />
-	        <param name="pddl_action_name" value="adjust_init_height" />
+	        <param name="pddl_action_name" value="start_game" />
 	        <param name="action_dispatch_topic" value="/rosplan_plan_dispatcher/action_dispatch" />
 	        <param name="action_feedback_topic" value="/rosplan_plan_dispatcher/action_feedback" />
 	</node>
 	
 	<node name="rosplan_interface_go_to_waypoint" pkg="erl2" type="go_to_waypoint" respawn="false" output="screen">
 	        <param name="knowledge_base" value="rosplan_knowledge_base" />
-	        <param name="pddl_action_name" value="goto_waypoint" />
+	        <param name="pddl_action_name" value="go_to_waypoint" />
 	        <param name="action_dispatch_topic" value="/rosplan_plan_dispatcher/action_dispatch" />
 	        <param name="action_feedback_topic" value="/rosplan_plan_dispatcher/action_feedback" />
 	</node>
@@ -73,7 +73,7 @@
 	
 	<node name="rosplan_interface_check_hyp" pkg="erl2" type="check_hyp" respawn="false" output="screen">
 	        <param name="knowledge_base" value="rosplan_knowledge_base" />
-	        <param name="pddl_action_name" value="check_hypothesis_correct" />
+	        <param name="pddl_action_name" value="check_hyp" />
 	        <param name="action_dispatch_topic" value="/rosplan_plan_dispatcher/action_dispatch" />
 	        <param name="action_feedback_topic" value="/rosplan_plan_dispatcher/action_feedback" />
 	</node>
