@@ -16,7 +16,7 @@ This is a ROS implementation of a robot agent playing a simplified Cluedo Game c
 
 - **ARMOR**: the armor service responsible for connecting with the knowledge base for querying the ontology or updating it. It is fully implemented by [EmaroLab](https://github.com/EmaroLab/armor). In this project, it is mainly used by the ontology server for adding new hypotheses and hints, and querying the individuals of COMPLETE hypothesis class.
  
- **Ontology Server**: a ROS server implemented to handle the communication with AROMR. It can receive two types of service requests: adding hints to the ontology through the services.
+- **Ontology Server**: a ROS server implemented to handle the communication with AROMR. It can receive two types of service requests: adding hints to the ontology through the services.
  
  - **Simulation Oracle**: a ROS node representing the Oracle of the game. It continuously checks if the robot's end-effector link `cluedo_link` is within the area of one of the specific hint points. If yes, it publishes a random hint on the topic `/oracle_hint` as a `erl2/ErlOracle.h` message. The published hint can contain valid or non-valid values. It also offers a service `/oracle_solution` to send the correct hypothesis ID as a `erl2/Oracle.h` message.
 
@@ -84,6 +84,26 @@ rosrun erl2 plan_manager.py
 ## Result:
 **Screenshots for succesfull simulation run:**
 
-1. First action in the plan `StartGame` is executed
+1. First action in the plan `StartGame interface` is executed:
+
+![alt text](https://github.com/cakmakcan/experimental_lab2/blob/main/startgamepic.PNG)
+
+2. The action to move to waypoints in the plan `GoToWaypoint interface` is executed:
+
+![alt text](https://github.com/cakmakcan/experimental_lab2/blob/main/gotowaypoint.PNG)
+
+3. The interface to collect hints in the plan `get_hint` is executed:
+   No hints is collected and re-planing made
+![alt text](https://github.com/cakmakcan/experimental_lab2/blob/main/get_hint%20failed.png)
+
+4. The waypoints are explored and replanned until one hint is found.
+
+5. 
+
+
+
+
+
+
 
 
