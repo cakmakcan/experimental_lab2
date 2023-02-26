@@ -90,8 +90,7 @@ rosrun erl2 plan_manager.py
 2. The action to move to waypoints in the plan `GoToWaypoint interface` is executed:
 ![alt text](https://github.com/cakmakcan/experimental_lab2/blob/main/gotowaypoint.PNG)
 
-3. The interface to collect hints in the plan `get_hint interface` is executed:
-   No hints is collected and re-planing made
+3. The interface to collect hints in the plan `get_hint interface` is executed: No hints is collected and re-planing made
 ![alt text](https://github.com/cakmakcan/experimental_lab2/blob/main/get_hint%20failed.png)
 
 4. The waypoints are explored and replanned until one hint is found.
@@ -135,10 +134,3 @@ rosrun erl2 plan_manager.py
 
 ## Possible Improvements:
 - Insted using function in planning, another method can be used because it creates problem.
-
-
-
-
-
-
-
