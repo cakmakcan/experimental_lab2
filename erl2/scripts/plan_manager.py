@@ -140,6 +140,8 @@ def main():
 		if last_dispatched_action == "get_hint":
 			print("get_hint action failed! Re-Planning!")
 			hints_received = hints_received - 1
+			print("Hints received", hints_received)
+			
 			update_request = KnowledgeUpdateServiceRequest()
 			update_request.update_type = 0
 			update_request.knowledge.knowledge_type = 2

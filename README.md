@@ -2,7 +2,7 @@
 
 You can start from this package for the implementation of the 2nd assignment of the course. You find here the simulation environment and the oracle node. Please refer to the class slides for more info!The system was implemented and tested on the [docker image](https://hub.docker.com/repository/docker/carms84/exproblab) provided by Prof. Carmine Recchiuto, University of Genova, Italy
 
-|       Author Name          | Student ID |      Email Address       Can Cakmak     |  5054534   |  [cakmak1213@gmail.com]   |
+|       Author Name: Can Cakmak   | Student ID: 5054534 |   [cakmak1213@gmail.com]   |
 
 
 ## Introduction:
@@ -81,5 +81,9 @@ roslaunch erl2 assignment.launch
 ```
 rosrun erl2 plan_manager.py
 ```
- 
+## Result:
+**Screenshots for succesfull simulation run:**
+
+1. First action in the plan `StartGame` is executed
+
 
