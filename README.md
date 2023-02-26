@@ -85,21 +85,56 @@ rosrun erl2 plan_manager.py
 **Screenshots for succesfull simulation run:**
 
 1. First action in the plan `StartGame interface` is executed:
-
 ![alt text](https://github.com/cakmakcan/experimental_lab2/blob/main/startgamepic.PNG)
 
 2. The action to move to waypoints in the plan `GoToWaypoint interface` is executed:
-
 ![alt text](https://github.com/cakmakcan/experimental_lab2/blob/main/gotowaypoint.PNG)
 
-3. The interface to collect hints in the plan `get_hint` is executed:
+3. The interface to collect hints in the plan `get_hint interface` is executed:
    No hints is collected and re-planing made
 ![alt text](https://github.com/cakmakcan/experimental_lab2/blob/main/get_hint%20failed.png)
 
 4. The waypoints are explored and replanned until one hint is found.
+![alt text](https://github.com/cakmakcan/experimental_lab2/blob/main/hintisfound.png)
 
-5. 
+5. When the hints are found, `get_hint interface` is run:
+![alt text](https://github.com/cakmakcan/experimental_lab2/blob/main/movearm.PNG)
 
+6. the robot collects 3 hints. So, it goes to the center point.
+![alt text](https://github.com/cakmakcan/experimental_lab2/blob/main/hypocheck.PNG)
+
+7. Action `CheckHyp interface` is executed. If correct hpy is not found, all the explored waypoints is reset and re-explored again to collect correct hints.
+
+8. When the robot finds the correct hypothesis, the output can be like this: Plan is successful.
+![alt text](https://github.com/cakmakcan/experimental_lab2/blob/main/final_result.PNG)
+
+## System Features & Working Assumptions:
+
+- There are four possible (x,y) locations such as (3,0) (0,3) (-3,0) and (0,-3)
+
+- The robot doesn't stand exactly at the previously defined locations. However, it stands at the locations: (2.4,0), (0,2.4), (-2.4,0), (0,-2.4) respectively.
+
+- I defined two possible state of arm high: 1.25 and low: 0.75 to use in moveit.
+
+-  At the begining, startgame interface used to initialized random pose.
+
+- Robot goes the waypoints to get the hints and after visiting waypoints, it goes to center to check hyp is correct or not.
+
+- When checking the correctness of the collected hypotheses, the robot checks all the collected complete hypotheses, whether they are consistent or not.
+
+- The action get_hint fails only when the robot doesn't receive any hint (`cluedo_link` is not within a hint area). Receiving a non-valid hint doesn't cause the action to fail. However, it doesn't add this non-valid hint to the ontology.
+
+- When the action get_hint fails, the plan execution fails and the task manager updates the knowledge base of ROSPlan with the current state (in this case, the number of collected hints and the explored waypoints from the beginning of the round are kept unchanged) and send a re-planning request to ROSPlan.
+
+- When the action check_hyp fails, the plan execution fails and the task manager updates the knowledge base of ROSPlan with the initial state of the system where all waypoints are unexplored and the number of collected hints is 0. Then, the task manager sends a re-planning request to ROSPlan.
+
+- The robot keeps going to waypoints, getting hints, and checking hypotheses until the plan is successful only when the action check_hyp returns true.  
+
+## System's Limitations:
+- The robot is constrained to the two defined heights: `h1`: 0.75 and `h2`: 1.25. Changing the hints heights will cause the system to fail.
+
+## Possible Improvements:
+- Insted using function in planning, another method can be used because it creates problem.
 
 
 
